@@ -1,20 +1,21 @@
 #!/usr/bin/python3
-
-
 """
-This file contains a function that prints a person's name
-say_my_name:
-    prints 'My name is <first name> <last name>
+3-say_my_name.py module
+3-say_my_name.py module supplies one function: say_my_name
 """
 
 
 def say_my_name(first_name, last_name=""):
+    """Function that prints first and last name
+    Args:
+        first_name: string
+        last_name: string
+    Raises:
+        TypeError: if first_name or last_name are not strings
     """
-    prints a person's name in this format:
-        "My name is <first name> <last name>"
-    """
-    if not isinstance(first_name, str):
+    if type(first_name) is not str:
         raise TypeError("first_name must be a string")
-    if not isinstance(last_name, str):
+
+    if type(last_name) is not str:
         raise TypeError("last_name must be a string")
-    print("My name is {} {}".format(first_name, last_name))
+    print("My name is {:s} {:s}".format(first_name, last_name))
