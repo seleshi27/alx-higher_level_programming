@@ -1,27 +1,21 @@
 #!/usr/bin/python3
-
-
 """
-This file contains a function text_indentation(text)
-that prints a text with 2 new lines after each of these
-characters (., ?, :)
+5-text_indentation.py
+This module supplies one function, text_indentation(text)
 """
 
 
 def text_indentation(text):
+    """Method for adding 2 new lines after .?: chars
+    Args:
+        text: The str text.
+    Raises:
+        TypeError: If text is not a str.
     """
-    this function prints a text with 2 new lines after each of
-    these characters (., ?, :)
-    """
-    flag = False
-    if not isinstance(text, str):
+    if type(text) is not str:
         raise TypeError("text must be a string")
-    for i, c in enumerate(text):
-        if c != ' ':
-            flag = True
-        if c in ".:?":
-            print("{}\n".format(c))
-            flag = False
-        elif flag:
-            print(c, end="")
-    print()
+
+    for symb in ".:?":
+        text = (symb + "\n\n"). join(
+            [line.strip(" ") for line in text.split(symb)])
+    print(text, end="")
