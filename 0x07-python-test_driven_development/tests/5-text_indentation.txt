@@ -1,48 +1,88 @@
->>> text_indentation = __import__('5-text_indentation').text_indentation
+The ``5-text_indentation`` module
+======================
 
-1. Not a string
+Using ``text_indentation``
+--------------------
 
->>> text_indentation(None)
-Traceback (most recent call last):
-TypeError: text must be a string
+Importing the function from the module:
+        >>> text_indentation = __import__('5-text_indentation').text_indentation
 
-2. Empty string
+Checking with all delimiters
+        >>> text_indentation("""Plus: semper voluptatis? Teneo, inquit. Finem""")
+        Plus:
+        <BLANKLINE>
+        semper voluptatis?
+        <BLANKLINE>
+        Teneo, inquit.
+        <BLANKLINE>
+        Finem
 
->>> text_indentation("")
-<BLANKLINE>
+Checking without arguments
+        >>> text_indentation()
+        Traceback (most recent call last):
+        ...
+        TypeError: text_indentation() missing 1 required positional argument: 'text'
 
-3. Leading spaces
+Checking more than one argument
+        >>> text_indentation("""Plus semper voluptatis?""", """Teneo, inquit, finem""")
+        Traceback (most recent call last):
+        ...
+        TypeError: text_indentation() takes 1 positional argument but 2 were given
 
->>> text_indentation("   Yo!!  ")
-Yo!!  
+Checking no-string
+        >>> text_indentation((1, 2))
+        Traceback (most recent call last):
+        ...
+        TypeError: text must be a string
+        >>> text_indentation(593)
+        Traceback (most recent call last):
+        ...
+        TypeError: text must be a string
 
-4. '.'
+Checking empty string
+        >>> text_indentation("")
 
->>> text_indentation("Hello.    World")
-Hello.
-<BLANKLINE>
-World
+Ckecking string with spaces only
+        >>> text_indentation("   ")
 
-5. '?'
+Checking contiguous delimiters
+        >>> text_indentation(":?.")
+        :
+        <BLANKLINE>
+        ?
+        <BLANKLINE>
+        .
+        <BLANKLINE>
 
->>> text_indentation("How much do you want to be worth? A million dollars")
-How much do you want to be worth?
-<BLANKLINE>
-A million dollars
+Checking newline
+        >>> text_indentation("\n")
+        <BLANKLINE>
+        >>> text_indentation("\n\n\n")
+        <BLANKLINE>
+        <BLANKLINE>
+        <BLANKLINE>
 
-6. ':'
+Ckecking text with spaces at the beginnig and the end
+        >>> text_indentation("    Plus semper voluptatis?, Teneo,     ")
+        Plus semper voluptatis?
+        <BLANKLINE>
+        , Teneo,
 
->>> text_indentation("I have a couple of goals: To be rich, To be very rich")
-I have a couple of goals:
-<BLANKLINE>
-To be rich, To be very rich
+Ckecking all delimiters with spaces at beginning and the end
+        >>> text_indentation("voluptatis :  semper ?     Plus  .    ")
+        voluptatis:
+        <BLANKLINE>
+        semper?
+        <BLANKLINE>
+        Plus.
+        <BLANKLINE>
 
-7. ".?:"
->>> text_indentation("Do you have goals? I have a couple of goals: To be rich. To be extremely rich")
-Do you have goals?
-<BLANKLINE>
-I have a couple of goals:
-<BLANKLINE>
-To be rich.
-<BLANKLINE>
-To be extremely rich
+Checking with dollars
+        >>> text_indentation("$$$?$$$:$$$.$$$")
+        $$$?
+        <BLANKLINE>
+        $$$:
+        <BLANKLINE>
+        $$$.
+        <BLANKLINE>
+        $$$
