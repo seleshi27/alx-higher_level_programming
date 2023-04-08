@@ -1,22 +1,22 @@
 #!/usr/bin/python3
-
-
 """
-this file contains a function that prints a square
-print_square:
-    prints a square using the '#' character
+4-print_square.py
+4-print_square.py module supplies one function, print_square(size)
 """
 
 
 def print_square(size):
+    """Function that prints a square
+    Args:
+        size: int size of the square to print
+    Raises:
+        TypeError: If size is not an int
+        TypeError: If size is < 0
     """
-    this function prints a square using the '#' character
-    """
-    if not isinstance(size, int):
+    if type(size) is not int:
         raise TypeError("size must be an integer")
     if size < 0:
         raise ValueError("size must be >= 0")
-    for r in range(size):
-        for c in range(size):
-            print('#', end='')
-        print()
+
+    for i in range(size):
+        print("#" * size)
