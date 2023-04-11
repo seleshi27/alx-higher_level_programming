@@ -1,7 +1,8 @@
 #!/usr/bin/python3
-"""Define a Rectangle"""
+"""Module for read_file method"""
 
 
-class Rectangle:
-    """An empty rectangle"""
-    pass
+def read_file(filename=""):
+    """Method that reads a text file (UTF8) and prints it to stdout"""
+    with open(filename, encoding="utf-8") as my_file_0:
+        print(my_file_0.read(), end="")
