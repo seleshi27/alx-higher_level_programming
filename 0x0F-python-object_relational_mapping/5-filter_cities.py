@@ -1,29 +1,17 @@
 #!/usr/bin/python3
-"""A script that lists all cities in a database."""
+"""Script that takes in the name of a state as an argument and lists
+all cities of that state, using the database hbtn_0e_4_usa"""
 import MySQLdb
-import sys
-
+from sys import argv
 
 if __name__ == "__main__":
-    username, password, name, search = sys.argv[1:]
-    db = MySQLdb.connect(
-        host="localhost", port=3306, user=username,
-        passwd=password, db=name
-    )
-    search = search.split()[0].strip("\"';")
+    db = MySQLdb.connect(host="localhost", port=3306, user=argv[1],
+                         passwd=argv[2], db=argv[3], charset="utf8")
     cur = db.cursor()
-    count = cur.execute((
-        "SELECT cities.name FROM cities"
-        "INNER JOIN states ON cities.state_id=states.id"
-        "WHERE states.name='{search}'"
-        "ORDER BY cities.id ASC;"
-    ))
-    for state in cur.fetchall():
-        count -= 1
-        if count == 0:
-            print(state[0], end='')
-        else:
-            print(state[0], end=', ')
-    print()
+    cur.execute("SELECT cities.name FROM cities \
+    JOIN states ON cities.state_id = states.id WHERE states.name LIKE %s \
+    ORDER BY cities.id", (argv[4],))
+    rows = cur.fetchall()
+    print(", ".join(city[0] for city in rows))
     cur.close()
     db.close()
