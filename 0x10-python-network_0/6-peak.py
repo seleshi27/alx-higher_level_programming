@@ -1,43 +1,31 @@
 #!/usr/bin/python3
-"""
-This file contains a function that gets the peak number in a list
+""" Finds a peak in a list of unsorted integers
 """
 
 
-def find_peak(nums):
+def find_peak(list_of_integers):
     """
-    find the peak number in an array
+    Args:
+        list_of_integers(int): list of integers to find peak of
+    Returns: peak of list_of_integers or None
     """
-    if nums == []:
-        return
-    if len(nums) == 1:
-        return nums[0]
-    if len(nums) == 2:
-        return max(nums)
-    if nums[0] > nums[1]:
-        return nums[0]
-    if nums[-1] > nums[-2]:
-        return nums[-1]
-    # get the mid element
-    if len(nums) % 2:
-        mid = len(nums) // 2
-    else:
-        mid = (len(nums) + 1) // 2
-    left = nums[:mid + 1]
-    right = nums[mid:]
-    if nums[mid] >= left[-2] and nums[mid] >= right[1]:
-        return nums[mid]
-    if mid < left[-2]:
-        pl = find_peak(left)
-        if pl is not None:
-            return pl
-        pr = find_peak(right)
-        if pl is not None:
-            return pl
-    else:
-        pr = find_peak(right)
-        if pr is not None:
-            return pr
-        pl = find_peak(left)
-        if pl is not None:
-            return pl
+    size = len(list_of_integers)
+    mid_e = size
+    mid = size // 2
+
+    if size == 0:
+        return None
+
+    while True:
+        mid_e = mid_e // 2
+        if (mid < size - 1 and
+                list_of_integers[mid] < list_of_integers[mid + 1]):
+            if mid_e // 2 == 0:
+                mid_e = 2
+            mid = mid + mid_e // 2
+        elif mid_e > 0 and list_of_integers[mid] < list_of_integers[mid - 1]:
+            if mid_e // 2 == 0:
+                mid_e = 2
+            mid = mid - mid_e // 2
+        else:
+            return list_of_integers[mid]
